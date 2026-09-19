@@ -1,0 +1,42 @@
+services:
+  mynote-user-service:
+    image: sasirasys/mynote-user-service
+    ports:
+      - 3001:3001
+    environment:
+      DATABASE_HOST: mynote-database
+    env_file:
+      - .env
+    develop:
+      watch:
+        - action: sync
+          path: ./UserService/src
+          target: /app/src
+
+  mynote-note-service:
+    image: sasirasys/mynote-note-service
+    ports:
+      - 3002:3002
+    environment:
+      DATABASE_HOST: mynote-database
+    env_file:
+      - .env
+    develop:
+      watch:
+        - action: sync
+          path: ./NoteService/src
+          target: /app/src
+
+  mynote-database:
+    image: mongo
+    restart: always
+    command: --quiet --syslog
+    expose:
+      - "27017"
+    volumes:
+      - userstore-data:/data/db
+      - mongo-config:/data/configdb
+
+volumes:
+  userstore-data:
+  mongo-config:
