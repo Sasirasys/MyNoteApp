@@ -47,9 +47,11 @@ const signupLogic = async (req, res) => {
       username: username,
       password: password,
     });
-    const savedUser = await newUser
-      .save()
-      .catch((err) => console.log("Error while inserting user:", err.message));
+    const savedUser = await newUser.save().catch((err) => {
+      return res
+        .status(400)
+        .json({ msg: `Error while inserting user: ${err.message}` });
+    });
 
     res.status(200).json({ msg: "User created successfully", savedUser });
   } catch (e) {
@@ -76,7 +78,7 @@ const loginLogic = async (req, res) => {
       { userId: data._id, username: data.username },
       process.env.JWT_SECRET || "noSecret",
       {
-        expiresIn: 300, // or "5m"; note: this will pass "exp" key in payload for checking if the token expired
+        expiresIn: "1d", // 300 = "5m"; note: this will pass "exp" key in payload for checking if the token expired
       },
     );
 

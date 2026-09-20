@@ -4,7 +4,7 @@ const app = express();
 const port = 3001;
 
 app.use(express.json());
-app.use(router);
+app.use("/user", router);
 
 app.listen(port, () => {
   console.log(`UserService listening on port ${port}`);

@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.post("/signup", signupLogic);
 router.post("/login", loginLogic);
-router.get("/get-all-users", getAllUsers); // for debugging purpose
+router.get("/get-all", getAllUsers); // for debugging purpose
 
 module.exports = router;
