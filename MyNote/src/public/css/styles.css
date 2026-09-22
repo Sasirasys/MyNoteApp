@@ -35,4 +35,7 @@
     background-color: #41331a;
     color: #dcc9b0;
   }
+  #login-message {
+    color: #cf1201;
+  }
 }
