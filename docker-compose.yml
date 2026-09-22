@@ -1,4 +1,17 @@
 services:
+  mynote-app:
+    image: sasirasys/mynote-app
+    ports:
+      - 3000:3000
+    environment:
+      NOTESERVICE_HOST: mynote-note-service
+      USERSERVICE_HOST: mynote-user-service
+    develop:
+      watch:
+        - action: sync
+          path: ./MyNote/src
+          target: /app/src
+
   mynote-user-service:
     image: sasirasys/mynote-user-service
     ports:
