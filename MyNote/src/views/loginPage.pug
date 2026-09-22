@@ -10,7 +10,9 @@ block content
             label Password:
             input(type="password", id="password", name="password")
         div
-            button(onclick="signUp(document.getElementById('username').value, document.getElementById('password').value)")#signup-button Sign up
+            button#signup-button Sign up
             button#login-button Login
         #login-message= message
+
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js")
         script(src="/js/main.js")
