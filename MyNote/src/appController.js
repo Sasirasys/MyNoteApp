@@ -1,5 +1,9 @@
-const loginPage = async (req, res) => {
+const loginPage = (req, res) => {
   res.render("loginPage");
 };
 
-module.exports = { loginPage };
+const notePage = async (req, res) => {
+  res.render("notePage");
+};
+
+module.exports = { loginPage, notePage };
