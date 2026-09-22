@@ -6,6 +6,10 @@
   font-family: "Inter";
 }
 
+body {
+  margin: 0px;
+}
+
 #login-form {
   margin-top: 20%;
   display: flex;
@@ -38,4 +42,119 @@
   #login-message {
     color: #cf1201;
   }
+}
+
+.note-layout {
+  display: flex;
+  height: 100dvh;
+}
+.sidebar {
+  width: 300px;
+  height: 100%;
+  border-right: 1px solid;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#new-note-button {
+  background-color: #41331a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.note-list {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.note-item {
+  padding: 15px 20px;
+  border: 2px solid #dcc9b0;
+  border-bottom: 2px solid #c2b8a6;
+  cursor: pointer;
+}
+.note-item:hover {
+  border: 2px solid;
+}
+.note-item.active {
+  border: 2px solid;
+}
+.note-item-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.note-item-snippet {
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.align-right {
+  text-align: end;
+  margin-top: 5px;
+}
+.editor-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+.editor-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+.secondary-btn {
+  background-color: transparent;
+  border: 1px solid;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.red {
+  border-color: #cf1201;
+  color: #cf1201;
+}
+.date-text {
+  font-size: 12px;
+}
+.editor-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+.note-title-input {
+  font-size: 28px;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.note-body-textarea {
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.6;
+  border: none;
+  outline: none;
+  resize: none;
+  width: 100%;
 }

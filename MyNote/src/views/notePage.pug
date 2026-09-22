@@ -1,4 +1,43 @@
 extends baseLayout 
 
+mixin noteItem(noteData)
+    div.note-item
+          div.note-item-title= noteData.title
+          div.note-item-snippet= noteData.content
+          div.date-text.align-right= noteData.createdAt
+
 block content
-    div Note page
+    div.note-layout
+        div.sidebar
+            div.sidebar-header
+                h2 My Note
+                button#new-note-button + New Note
+            div.note-list
+                div.note-item.active
+                    div.note-item-title Project Brainstorming
+                    div.note-item-snippet Ideas for the upcoming application redesign...
+                    div.date-text.align-right 2026-09-22 10.23
+                div.note-item
+                    div.note-item-title Grocery List
+                    div.note-item-snippet Milk, eggs, coffee beans, avocadossss...
+                    div.date-text.align-right 2026-09-22 10.23
+                div.note-item
+                    div.note-item-title Meeting Notes
+                    div.note-item-snippet Discussed project timelines and milestones with team...
+                    div.date-text.align-right 2026-09-22 10.23
+
+        // Main Editor Area
+        main.editor-container
+            div.editor-header
+                button.secondary-btn#save-button Save Changes
+                button.secondary-btn.red#delete-button Delete
+                div 
+                    .date-text Created at:
+                    .date-text 2026-09-22 10.23
+                div 
+                    .date-text Last updated: 
+                    .date-text 2026-09-22 22.20
+                        
+            div.editor-main
+                input.note-title-input(type="text" placeholder="Note Title" value="Untitled")
+                textarea.note-body-textarea(placeholder="Start writing your note here...")
