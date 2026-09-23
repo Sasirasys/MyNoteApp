@@ -10,6 +10,7 @@ const getNoteList = async () => {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
+    if (response.status == 401) handleUnauthorized();
     const { data: noteList } = await response.json();
 
     const currentActive = document.querySelector(".note-item.active");
@@ -57,6 +58,7 @@ const saveChanges = async (title, content) => {
         content: content,
       }),
     });
+    if (response.status == 401) handleUnauthorized();
     if (!response.ok) throw new Error(response.error);
 
     getNoteList();
@@ -80,6 +82,7 @@ const saveNewNote = async (title, content) => {
         content: content,
       }),
     });
+    if (response.status == 401) handleUnauthorized();
     if (!response.ok) throw new Error(response.error);
     const data = await response.json();
 
@@ -117,6 +120,7 @@ const fetchNoteDetails = async (noteId) => {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
+    if (response.status == 401) handleUnauthorized();
     const { data } = await response.json();
     const createDate = document.getElementById("create-date");
     const modifyDate = document.getElementById("modify-date");
@@ -144,6 +148,7 @@ const deleteNote = async () => {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
+    if (response.status == 401) handleUnauthorized();
     if (!response.ok) throw new Error(response.error);
     getNoteList();
   } catch (e) {
@@ -172,6 +177,11 @@ const clearEditor = () => {
   document.getElementById("note-body-textarea").value = "";
   document.getElementById("create-date").textContent = "-";
   document.getElementById("modify-date").textContent = "-";
+};
+
+const handleUnauthorized = () => {
+  window.alert("Authorization Failed\nRedirecting to login page.");
+  window.location.href = "/login";
 };
 
 $(document).ready(function () {
