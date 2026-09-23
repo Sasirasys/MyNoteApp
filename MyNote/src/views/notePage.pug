@@ -1,5 +1,6 @@
 extends baseLayout 
 
+
 mixin noteItem(noteData)
     div.note-item
           div.note-item-title= noteData.title
@@ -12,7 +13,7 @@ block content
             div.sidebar-header
                 h2 My Note
                 button#new-note-button + New Note
-            div.note-list
+            div.note-list#notes-container
                 div.note-item.active
                     div.note-item-title Project Brainstorming
                     div.note-item-snippet Ideas for the upcoming application redesign...
@@ -41,3 +42,6 @@ block content
             div.editor-main
                 input.note-title-input(type="text" placeholder="Note Title" value="Untitled")
                 textarea.note-body-textarea(placeholder="Start writing your note here...")
+
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js")
+    script(src="/js/notePage.js")
