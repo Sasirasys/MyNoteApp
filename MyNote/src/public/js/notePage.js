@@ -19,7 +19,7 @@ const getNoteList = async () => {
         <div class="note-item" data-id="${noteData._id}" onclick="setActiveNote(this)">
               <div class="note-item-title">${noteData.title}</div>
               <div class="note-item-snippet">${noteData.content}</div>
-              <div class="date-text align-right">${noteData.createdAt}</div>
+              <div class="date-text align-right">${formatISODate(noteData.createdAt)}</div>
         </div>
         `;
       container.insertAdjacentHTML("beforeend", noteHTML);
@@ -43,6 +43,21 @@ function setActiveNote(element) {
 
 function fetchNoteDetails(noteId) {
   return;
+}
+
+function formatISODate(isoString) {
+  const date = new Date(isoString);
+
+  // Extract date components
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const year = date.getFullYear();
+
+  // Extract time components
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${day}-${month}-${year} ${hours}:${minutes}`;
 }
 
 $(document).ready(function () {
