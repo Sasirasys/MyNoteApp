@@ -1,8 +1,8 @@
-const userService_url = `http://localhost:3002`;
+const noteService_url = `http://localhost:3002`;
 
 const getNoteList = async () => {
   try {
-    const url = `${userService_url}/note/readList`;
+    const url = `${noteService_url}/note/readList`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -12,11 +12,18 @@ const getNoteList = async () => {
     });
     const { data: noteList } = await response.json();
 
+    const currentActive = document.querySelector(".note-item.active");
+    let currentActiveId;
+    if (currentActive) {
+      currentActiveId = currentActive.getAttribute("data-id");
+    }
+
     const container = document.getElementById("notes-container");
     container.innerHTML = "";
     noteList.forEach((noteData) => {
+      const activeClass = noteData._id == currentActiveId ? "active" : "";
       const noteHTML = `
-        <div class="note-item" data-id="${noteData._id}" onclick="setActiveNote(this)">
+        <div class="note-item ${activeClass}" data-id="${noteData._id}" onclick="setActiveNote(this)">
               <div class="note-item-title">${noteData.title}</div>
               <div class="note-item-snippet">${noteData.content}</div>
               <div class="date-text align-right">${formatISODate(noteData.createdAt)}</div>
@@ -27,6 +34,39 @@ const getNoteList = async () => {
   } catch (e) {
     console.error("Failed to load notes", e);
   }
+};
+
+const saveChanges = async (title, content) => {
+  try {
+    const currentActive = document.querySelector(".note-item.active");
+    if (!currentActive) {
+      saveNewNote();
+      return;
+    }
+
+    const currentActiveId = currentActive.getAttribute("data-id");
+    const url = `${noteService_url}/note/update/${currentActiveId}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+      }),
+    });
+    if (!response.ok) throw new Error(response.error);
+
+    getNoteList();
+  } catch (e) {
+    console.error("Failed to save note", e);
+  }
+};
+
+const saveNewNote = () => {
+  console.log("save new note");
 };
 
 function setActiveNote(element) {
@@ -43,7 +83,7 @@ function setActiveNote(element) {
 
 async function fetchNoteDetails(noteId) {
   try {
-    const url = `${userService_url}/note/read/${noteId}`;
+    const url = `${noteService_url}/note/read/${noteId}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -83,4 +123,13 @@ function formatISODate(isoString) {
 
 $(document).ready(function () {
   getNoteList();
+
+  $("#save-button").on("click", (event) => {
+    event.preventDefault(); // Stops the button from refreshing the page
+
+    const title = $("#note-title-input").val();
+    const content = $("#note-body-textarea").val();
+
+    saveChanges(title, content);
+  });
 });
