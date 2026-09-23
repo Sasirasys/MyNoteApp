@@ -40,7 +40,7 @@ const saveChanges = async (title, content) => {
   try {
     const currentActive = document.querySelector(".note-item.active");
     if (!currentActive) {
-      saveNewNote();
+      saveNewNote(title, content);
       return;
     }
 
@@ -65,8 +65,32 @@ const saveChanges = async (title, content) => {
   }
 };
 
-const saveNewNote = () => {
-  console.log("save new note");
+const saveNewNote = async (title, content) => {
+  try {
+    const url = `${noteService_url}/note/create`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+      }),
+    });
+    if (!response.ok) throw new Error(response.error);
+    const data = await response.json();
+
+    await getNoteList();
+
+    const currentElement = document.querySelector(
+      `[data-id="${data.data._id}"]`,
+    );
+    setActiveNote(currentElement);
+  } catch (e) {
+    console.error("Failed to create new note", e);
+  }
 };
 
 function setActiveNote(element) {
@@ -75,6 +99,7 @@ function setActiveNote(element) {
     currentActive.classList.remove("active");
   }
 
+  if (!element) return;
   element.classList.add("active");
 
   const noteId = element.getAttribute("data-id");
@@ -92,7 +117,6 @@ async function fetchNoteDetails(noteId) {
       },
     });
     const { data } = await response.json();
-    console.log(data);
     const createDate = document.getElementById("create-date");
     const modifyDate = document.getElementById("modify-date");
     const title = document.getElementById("note-title-input");
@@ -131,5 +155,13 @@ $(document).ready(function () {
     const content = $("#note-body-textarea").val();
 
     saveChanges(title, content);
+  });
+
+  $("#new-note-button").on("click", (event) => {
+    event.preventDefault();
+
+    setActiveNote();
+    document.getElementById("note-title-input").value = "";
+    document.getElementById("note-body-textarea").value = "";
   });
 });
