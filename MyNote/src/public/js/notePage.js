@@ -60,6 +60,7 @@ const saveChanges = async (title, content) => {
     if (!response.ok) throw new Error(response.error);
 
     getNoteList();
+    fetchNoteDetails(currentActiveId);
   } catch (e) {
     console.error("Failed to save note", e);
   }
