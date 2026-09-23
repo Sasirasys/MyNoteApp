@@ -14,18 +14,18 @@ block content
                 h2 My Note
                 button#new-note-button + New Note
             div.note-list#notes-container
-                div.note-item.active
-                    div.note-item-title Project Brainstorming
-                    div.note-item-snippet Ideas for the upcoming application redesign...
-                    div.date-text.align-right 2026-09-22 10.23
-                div.note-item
-                    div.note-item-title Grocery List
-                    div.note-item-snippet Milk, eggs, coffee beans, avocadossss...
-                    div.date-text.align-right 2026-09-22 10.23
-                div.note-item
-                    div.note-item-title Meeting Notes
-                    div.note-item-snippet Discussed project timelines and milestones with team...
-                    div.date-text.align-right 2026-09-22 10.23
+                //- div.note-item.active
+                //-     div.note-item-title Project Brainstorming
+                //-     div.note-item-snippet Ideas for the upcoming application redesign...
+                //-     div.date-text.align-right 2026-09-22 10.23
+                //- div.note-item
+                //-     div.note-item-title Grocery List
+                //-     div.note-item-snippet Milk, eggs, coffee beans, avocadossss...
+                //-     div.date-text.align-right 2026-09-22 10.23
+                //- div.note-item
+                //-     div.note-item-title Meeting Notes
+                //-     div.note-item-snippet Discussed project timelines and milestones with team...
+                //-     div.date-text.align-right 2026-09-22 10.23
 
         // Main Editor Area
         main.editor-container
@@ -40,7 +40,7 @@ block content
                     .date-text#modify-date -
                         
             div.editor-main
-                input#note-title-input(type="text" placeholder="Note Title" value="Untitled")
+                input#note-title-input(type="text" placeholder="Note Title" value="")
                 textarea#note-body-textarea(placeholder="Start writing your note here...")
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js")

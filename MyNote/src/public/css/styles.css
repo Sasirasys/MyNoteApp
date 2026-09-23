@@ -76,7 +76,7 @@ body {
   overflow-y: auto;
   list-style: none;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 .note-item {
   padding: 15px 20px;

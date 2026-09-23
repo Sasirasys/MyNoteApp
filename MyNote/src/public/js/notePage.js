@@ -89,11 +89,11 @@ const saveNewNote = async (title, content) => {
     );
     setActiveNote(currentElement);
   } catch (e) {
-    console.error("Failed to create new note", e);
+    console.error("Error creating new note", e);
   }
 };
 
-function setActiveNote(element) {
+const setActiveNote = (element) => {
   const currentActive = document.querySelector(".note-item.active");
   if (currentActive) {
     currentActive.classList.remove("active");
@@ -104,9 +104,9 @@ function setActiveNote(element) {
 
   const noteId = element.getAttribute("data-id");
   fetchNoteDetails(noteId);
-}
+};
 
-async function fetchNoteDetails(noteId) {
+const fetchNoteDetails = async (noteId) => {
   try {
     const url = `${noteService_url}/note/read/${noteId}`;
     const response = await fetch(url, {
@@ -126,11 +126,31 @@ async function fetchNoteDetails(noteId) {
     title.value = data.title;
     content.value = data.content;
   } catch (e) {
-    console.error("Failed to load note data", e);
+    console.error("Error loading note data", e);
   }
-}
+};
 
-function formatISODate(isoString) {
+const deleteNote = async () => {
+  try {
+    const element = document.querySelector(".note-item.active");
+    if (!element) return;
+    const noteId = element.getAttribute("data-id");
+    const url = `${noteService_url}/note/delete/${noteId}`;
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    if (!response.ok) throw new Error(response.error);
+    getNoteList();
+  } catch (e) {
+    console.error("Error deleting note", e);
+  }
+};
+
+const formatISODate = (isoString) => {
   const date = new Date(isoString);
 
   // Extract date components
@@ -143,7 +163,15 @@ function formatISODate(isoString) {
   const minutes = String(date.getMinutes()).padStart(2, "0");
 
   return `${day}-${month}-${year} ${hours}:${minutes}`;
-}
+};
+
+const clearEditor = () => {
+  setActiveNote();
+  document.getElementById("note-title-input").value = "";
+  document.getElementById("note-body-textarea").value = "";
+  document.getElementById("create-date").textContent = "-";
+  document.getElementById("modify-date").textContent = "-";
+};
 
 $(document).ready(function () {
   getNoteList();
@@ -160,8 +188,13 @@ $(document).ready(function () {
   $("#new-note-button").on("click", (event) => {
     event.preventDefault();
 
-    setActiveNote();
-    document.getElementById("note-title-input").value = "";
-    document.getElementById("note-body-textarea").value = "";
+    clearEditor();
+  });
+
+  $("#delete-button").on("click", (event) => {
+    event.preventDefault();
+
+    deleteNote();
+    clearEditor();
   });
 });
