@@ -41,8 +41,29 @@ function setActiveNote(element) {
   fetchNoteDetails(noteId);
 }
 
-function fetchNoteDetails(noteId) {
-  return;
+async function fetchNoteDetails(noteId) {
+  try {
+    const url = `${userService_url}/note/read/${noteId}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    const { data } = await response.json();
+    console.log(data);
+    const createDate = document.getElementById("create-date");
+    const modifyDate = document.getElementById("modify-date");
+    const title = document.getElementById("note-title-input");
+    const content = document.getElementById("note-body-textarea");
+    createDate.textContent = formatISODate(data.createdAt);
+    modifyDate.textContent = formatISODate(data.lastModified);
+    title.value = data.title;
+    content.value = data.content;
+  } catch (e) {
+    console.error("Failed to load note data", e);
+  }
 }
 
 function formatISODate(isoString) {

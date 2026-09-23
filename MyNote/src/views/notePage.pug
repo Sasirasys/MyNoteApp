@@ -34,14 +34,14 @@ block content
                 button.secondary-btn.red#delete-button Delete
                 div 
                     .date-text Created at:
-                    .date-text 2026-09-22 10.23
+                    .date-text#create-date -
                 div 
                     .date-text Last updated: 
-                    .date-text 2026-09-22 22.20
+                    .date-text#modify-date -
                         
             div.editor-main
-                input.note-title-input(type="text" placeholder="Note Title" value="Untitled")
-                textarea.note-body-textarea(placeholder="Start writing your note here...")
+                input#note-title-input(type="text" placeholder="Note Title" value="Untitled")
+                textarea#note-body-textarea(placeholder="Start writing your note here...")
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js")
     script(src="/js/notePage.js")

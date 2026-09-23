@@ -141,7 +141,7 @@ body {
   flex-direction: column;
   padding: 30px;
 }
-.note-title-input {
+#note-title-input {
   font-size: 28px;
   font-weight: 700;
   border: none;
@@ -149,7 +149,7 @@ body {
   margin-bottom: 20px;
   width: 100%;
 }
-.note-body-textarea {
+#note-body-textarea {
   flex: 1;
   font-size: 16px;
   line-height: 1.6;
