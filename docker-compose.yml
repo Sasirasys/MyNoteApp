@@ -3,9 +3,6 @@ services:
     image: sasirasys/mynote-app
     ports:
       - 3000:3000
-    environment:
-      NOTESERVICE_HOST: mynote-note-service
-      USERSERVICE_HOST: mynote-user-service
     develop:
       watch:
         - action: sync
@@ -47,9 +44,9 @@ services:
     expose:
       - "27017"
     volumes:
-      - userstore-data:/data/db
+      - mynote-data:/data/db
       - mongo-config:/data/configdb
 
 volumes:
-  userstore-data:
+  mynote-data:
   mongo-config:
