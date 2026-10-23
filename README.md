@@ -1,4 +1,6 @@
 # MyNoteApp
+<img width="1303" height="867" alt="Screenshot 2026-09-25 005651" src="https://github.com/user-attachments/assets/11b4a605-c2b4-4335-987f-b0e6c6370e65" />
+<img width="1303" height="867" alt="Screenshot 2026-09-25 005620" src="https://github.com/user-attachments/assets/03bd82c4-9d70-446b-a3ac-61002bc5411f" />
 
 ## Software Description
 **MyNoteApp** is a note taking app which users can see, add, edit, and delete their own notes. 
@@ -53,6 +55,8 @@ Taibi et al.:
 - Shared DB server: MongoDB is shared between UserService and NoteService but each service uses different collections.
 
 ## Component Roles and Responsibilities
+<img width="658" height="211" alt="image" src="https://github.com/user-attachments/assets/bac7fedc-fac2-429f-a306-9169739cd2cd" />
+
 **MyNote** is an app that serves user interfaces to users and consumes services from *UserService* and *NoteService*. 
 It serves a login page at http://localhost:3000/login and note management page at http://localhost:3000/. 
 
